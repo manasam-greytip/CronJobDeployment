@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cronjob-sample
+  namespace: argocd
+spec:
+  project: my-project
+  source:
+    repoURL: https://github.com/manasam-greytip/CronJobDeployment.git
+    targetRevision: main
+    path: manifests   # 👈 must match repo folder
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
